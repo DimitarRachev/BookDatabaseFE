@@ -1,0 +1,26 @@
+services:
+  # MariaDB Database for testing
+  database:
+    image: mariadb:10.11
+    container_name: book-database-test
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: book_database
+      MYSQL_USER: bookuser
+      MYSQL_PASSWORD: bookpassword
+    volumes:
+      - db_test:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  db_test:
+    driver: local 

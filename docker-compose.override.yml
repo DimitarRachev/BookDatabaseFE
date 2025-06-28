@@ -1,0 +1,23 @@
+# Docker Compose Override File
+# This file contains local development overrides
+# It will be automatically merged with the main docker-compose.yml
+
+services:
+  # Override frontend for local development
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    command: npm start
+
+volumes:
+  db_data_local:
+    driver: local 

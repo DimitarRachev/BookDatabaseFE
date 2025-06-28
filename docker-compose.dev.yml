@@ -1,0 +1,64 @@
+services:
+  # MariaDB Database for Development
+  database:
+    image: mariadb:10.11
+    container_name: book-database-db-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: book_database
+      MYSQL_USER: bookuser
+      MYSQL_PASSWORD: bookpassword
+    volumes:
+      - db_data_dev:/var/lib/mysql
+      - ../BookDatabase/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - book-network-dev
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Backend Spring Boot Application for Development
+  backend:
+    build:
+      context: ../BookDatabase
+      dockerfile: Dockerfile
+    container_name: book-database-backend-dev
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/book_database?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: bookuser
+      SPRING_DATASOURCE_PASSWORD: bookpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_SHOW_SQL: true
+      SERVER_PORT: 8080
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - book-network-dev
+    volumes:
+      - ../BookDatabase:/app
+      - /app/target
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  db_data_dev:
+    driver: local
+
+networks:
+  book-network-dev:
+    driver: bridge 

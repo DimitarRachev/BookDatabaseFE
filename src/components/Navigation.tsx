@@ -47,27 +47,27 @@ const Navigation: React.FC = () => {
       >
         <Tab 
           icon={<Home />} 
-          label="Начало" 
+          label="Home" 
           iconPosition="start"
         />
         <Tab 
           icon={<Book />} 
-          label="Книги" 
+          label="Books" 
           iconPosition="start"
         />
         <Tab 
           icon={<Person />} 
-          label="Автори" 
+          label="Authors" 
           iconPosition="start"
         />
         <Tab 
           icon={<Business />} 
-          label="Издателства" 
+          label="Publishers" 
           iconPosition="start"
         />
         <Tab 
           icon={<Category />} 
-          label="Жанрове" 
+          label="Genres" 
           iconPosition="start"
         />
       </Tabs>

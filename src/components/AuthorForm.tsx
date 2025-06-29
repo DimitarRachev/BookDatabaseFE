@@ -49,7 +49,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Първо име"
+            label="First Name"
             value={formData.firstName}
             onChange={(e) => handleInputChange('firstName', e.target.value)}
             required
@@ -59,7 +59,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Фамилия"
+            label="Last Name"
             value={formData.lastName}
             onChange={(e) => handleInputChange('lastName', e.target.value)}
             required
@@ -69,7 +69,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Дата на раждане"
+            label="Birth Date"
             type="date"
             value={formData.birthDate}
             onChange={(e) => handleInputChange('birthDate', e.target.value)}
@@ -81,7 +81,7 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Биография"
+            label="Biography"
             multiline
             rows={4}
             value={formData.biography}
@@ -92,10 +92,10 @@ const AuthorForm: React.FC<AuthorFormProps> = ({
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="outlined" onClick={onCancel}>
-              Отказ
+              Cancel
             </Button>
-            <Button type="submit" variant="contained">
-              {author ? 'Обнови' : 'Създай'}
+            <Button type="submit" variant="contained" color="primary">
+              {author ? 'Update' : 'Create'} Author
             </Button>
           </Box>
         </Grid>

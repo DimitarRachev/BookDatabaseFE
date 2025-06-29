@@ -33,7 +33,7 @@ function App() {
             <Toolbar>
               <Book sx={{ mr: 2 }} />
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                База данни с книги
+                Book Database
               </Typography>
             </Toolbar>
           </AppBar>

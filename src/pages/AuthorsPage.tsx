@@ -23,7 +23,7 @@ import {
   Person
 } from '@mui/icons-material';
 import { format } from 'date-fns';
-import { bg } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 
 import { Author } from '../types';
 import { authorsApi } from '../services/api';
@@ -47,7 +47,7 @@ const AuthorsPage: React.FC = () => {
       const response = await authorsApi.getAll();
       setAuthors(response.data);
     } catch (error) {
-      showSnackbar('Грешка при зареждане на авторите', 'error');
+      showSnackbar('Error loading authors', 'error');
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,7 @@ const AuthorsPage: React.FC = () => {
       const response = await authorsApi.search(searchTerm);
       setAuthors(response.data);
     } catch (error) {
-      showSnackbar('Грешка при търсене', 'error');
+      showSnackbar('Error during search', 'error');
     } finally {
       setLoading(false);
     }
@@ -81,13 +81,13 @@ const AuthorsPage: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Сигурни ли сте, че искате да изтриете този автор?')) {
+    if (window.confirm('Are you sure you want to delete this author?')) {
       try {
         await authorsApi.delete(id);
         setAuthors(authors.filter(author => author.id !== id));
-        showSnackbar('Авторът е изтрит успешно', 'success');
+        showSnackbar('Author deleted successfully', 'success');
       } catch (error) {
-        showSnackbar('Грешка при изтриване на автора', 'error');
+        showSnackbar('Error deleting author', 'error');
       }
     }
   };
@@ -97,15 +97,15 @@ const AuthorsPage: React.FC = () => {
       if (editingAuthor) {
         const response = await authorsApi.update(editingAuthor.id!, author);
         setAuthors(authors.map(a => a.id === editingAuthor.id ? response.data : a));
-        showSnackbar('Авторът е обновен успешно', 'success');
+        showSnackbar('Author updated successfully', 'success');
       } else {
         const response = await authorsApi.create(author);
         setAuthors([...authors, response.data]);
-        showSnackbar('Авторът е създаден успешно', 'success');
+        showSnackbar('Author created successfully', 'success');
       }
       setOpenDialog(false);
     } catch (error) {
-      showSnackbar('Грешка при запазване на автора', 'error');
+      showSnackbar('Error saving author', 'error');
     }
   };
 
@@ -115,7 +115,7 @@ const AuthorsPage: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     try {
-      return format(new Date(dateString), 'dd MMMM yyyy', { locale: bg });
+      return format(new Date(dateString), 'dd MMMM yyyy', { locale: enUS });
     } catch {
       return dateString;
     }
@@ -125,7 +125,7 @@ const AuthorsPage: React.FC = () => {
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
         <Person sx={{ mr: 1, verticalAlign: 'middle' }} />
-        Автори
+        Authors
       </Typography>
 
       {/* Search Section */}
@@ -135,7 +135,7 @@ const AuthorsPage: React.FC = () => {
             <Grid item xs={12} sm={8}>
               <TextField
                 fullWidth
-                label="Търсене по име"
+                label="Search by name"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -148,21 +148,24 @@ const AuthorsPage: React.FC = () => {
                 startIcon={<Search />}
                 onClick={handleSearch}
               >
-                Търси
+                Search
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
 
-      {/* Add Button */}
-      <Box sx={{ mb: 3 }}>
+      {/* Actions */}
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">
+          {authors.length} author{authors.length !== 1 ? 's' : ''} found
+        </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={handleCreate}
         >
-          Добави нов автор
+          Add Author
         </Button>
       </Box>
 
@@ -172,12 +175,12 @@ const AuthorsPage: React.FC = () => {
           <Grid item xs={12} sm={6} md={4} key={author.id}>
             <Card>
               <CardContent>
-                <Typography variant="h6" component="h3" gutterBottom>
+                <Typography variant="h6" component="h2" gutterBottom>
                   {author.firstName} {author.lastName}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Дата на раждане:</strong> {formatDate(author.birthDate)}
+                  <strong>Birth Date:</strong> {formatDate(author.birthDate)}
                 </Typography>
 
                 {author.biography && (
@@ -210,15 +213,15 @@ const AuthorsPage: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Author Form Dialog */}
-      <Dialog
-        open={openDialog}
+      {/* Dialog */}
+      <Dialog 
+        open={openDialog} 
         onClose={() => setOpenDialog(false)}
         maxWidth="sm"
         fullWidth
       >
         <DialogTitle>
-          {editingAuthor ? 'Редактиране на автор' : 'Нов автор'}
+          {editingAuthor ? 'Edit Author' : 'Add New Author'}
         </DialogTitle>
         <DialogContent>
           <AuthorForm
@@ -235,8 +238,8 @@ const AuthorsPage: React.FC = () => {
         autoHideDuration={6000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
       >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
           severity={snackbar.severity}
         >
           {snackbar.message}

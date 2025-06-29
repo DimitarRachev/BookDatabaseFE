@@ -26,11 +26,11 @@ const HomePage: React.FC = () => {
   return (
     <Box>
       <Typography variant="h3" component="h1" gutterBottom align="center">
-        Добре дошли в База данни с книги
+        Welcome to Book Database
       </Typography>
       
       <Typography variant="h6" component="h2" gutterBottom align="center" color="text.secondary">
-        Система за управление на библиотека с книги, автори, издателства и жанрове
+        Library management system for books, authors, publishers, and genres
       </Typography>
 
       <Box sx={{ mt: 4 }}>
@@ -40,29 +40,29 @@ const HomePage: React.FC = () => {
               <CardContent>
                 <Typography variant="h5" component="h3" gutterBottom>
                   <Book sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Книги
+                  Books
                 </Typography>
                 <Typography variant="body1" paragraph>
-                  Управлявайте вашата колекция от книги с пълна информация за заглавие, 
-                  ISBN, дата на публикуване, жанр, описание, брой страници, език, 
-                  автори и издателство.
+                  Manage your book collection with complete information including title, 
+                  ISBN, publication date, genre, description, page count, language, 
+                  authors, and publisher.
                 </Typography>
                 <List dense>
                   <ListItem>
                     <ListItemIcon><Search /></ListItemIcon>
-                    <ListItemText primary="Търсене по различни критерии" />
+                    <ListItemText primary="Search by various criteria" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Add /></ListItemIcon>
-                    <ListItemText primary="Добавяне на нови книги" />
+                    <ListItemText primary="Add new books" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Edit /></ListItemIcon>
-                    <ListItemText primary="Редактиране на съществуващи" />
+                    <ListItemText primary="Edit existing books" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Delete /></ListItemIcon>
-                    <ListItemText primary="Изтриване на книги" />
+                    <ListItemText primary="Delete books" />
                   </ListItem>
                 </List>
               </CardContent>
@@ -74,24 +74,24 @@ const HomePage: React.FC = () => {
               <CardContent>
                 <Typography variant="h5" component="h3" gutterBottom>
                   <Person sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Автори
+                  Authors
                 </Typography>
                 <Typography variant="body1" paragraph>
-                  Поддържайте информация за авторите с техните имена, дата на раждане 
-                  и биография. Връзките с книгите се управляват автоматично.
+                  Maintain author information with their names, birth dates, 
+                  and biographies. Book relationships are managed automatically.
                 </Typography>
                 <List dense>
                   <ListItem>
                     <ListItemIcon><Search /></ListItemIcon>
-                    <ListItemText primary="Търсене по име" />
+                    <ListItemText primary="Search by name" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Add /></ListItemIcon>
-                    <ListItemText primary="Добавяне на нови автори" />
+                    <ListItemText primary="Add new authors" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Edit /></ListItemIcon>
-                    <ListItemText primary="Редактиране на информация" />
+                    <ListItemText primary="Edit information" />
                   </ListItem>
                 </List>
               </CardContent>
@@ -103,24 +103,24 @@ const HomePage: React.FC = () => {
               <CardContent>
                 <Typography variant="h5" component="h3" gutterBottom>
                   <Business sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Издателства
+                  Publishers
                 </Typography>
                 <Typography variant="body1" paragraph>
-                  Управлявайте информация за издателствата с техните контактни данни, 
-                  адрес, телефон, имейл и уебсайт.
+                  Manage publisher information with their contact details, 
+                  address, phone, email, and website.
                 </Typography>
                 <List dense>
                   <ListItem>
                     <ListItemIcon><Search /></ListItemIcon>
-                    <ListItemText primary="Търсене по име и адрес" />
+                    <ListItemText primary="Search by name and address" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Add /></ListItemIcon>
-                    <ListItemText primary="Добавяне на нови издателства" />
+                    <ListItemText primary="Add new publishers" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Edit /></ListItemIcon>
-                    <ListItemText primary="Редактиране на данни" />
+                    <ListItemText primary="Edit data" />
                   </ListItem>
                 </List>
               </CardContent>
@@ -132,24 +132,24 @@ const HomePage: React.FC = () => {
               <CardContent>
                 <Typography variant="h5" component="h3" gutterBottom>
                   <Category sx={{ mr: 1, verticalAlign: 'middle' }} />
-                  Жанрове
+                  Genres
                 </Typography>
                 <Typography variant="body1" paragraph>
-                  Организирайте книгите по жанрове с възможност за създаване на 
-                  нови категории и управление на съществуващите.
+                  Organize books by genres with the ability to create 
+                  new categories and manage existing ones.
                 </Typography>
                 <List dense>
                   <ListItem>
                     <ListItemIcon><Search /></ListItemIcon>
-                    <ListItemText primary="Търсене по име на жанр" />
+                    <ListItemText primary="Search by genre name" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Add /></ListItemIcon>
-                    <ListItemText primary="Добавяне на нови жанрове" />
+                    <ListItemText primary="Add new genres" />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon><Edit /></ListItemIcon>
-                    <ListItemText primary="Редактиране на жанрове" />
+                    <ListItemText primary="Edit genres" />
                   </ListItem>
                 </List>
               </CardContent>
@@ -160,56 +160,44 @@ const HomePage: React.FC = () => {
 
       <Paper sx={{ mt: 4, p: 3 }}>
         <Typography variant="h6" gutterBottom>
-          Възможности за търсене
+          Search Capabilities
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Typography variant="subtitle1" gutterBottom>
-              Търсене на книги:
+              Book Search:
             </Typography>
             <List dense>
               <ListItem>
-                <ListItemText primary="• По заглавие" />
+                <ListItemText primary="• By title" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• По автор" />
+                <ListItemText primary="• By author" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• По издателство" />
+                <ListItemText primary="• By publisher" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• По жанр" />
+                <ListItemText primary="• By genre" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• По дата на публикуване" />
+                <ListItemText primary="• By publication date" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• По ISBN или език" />
+                <ListItemText primary="• By ISBN or language" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="• Общо търсене в заглавие, описание, ISBN" />
+                <ListItemText primary="• General search in title, description, ISBN" />
               </ListItem>
             </List>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="subtitle1" gutterBottom>
-              Търсене на автори:
+              Author Search:
             </Typography>
             <List dense>
               <ListItem>
-                <ListItemText primary="• По име (първо име, фамилия или пълно име)" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="• По дата на раждане (диапазон)" />
-              </ListItem>
-            </List>
-            
-            <Typography variant="subtitle1" gutterBottom sx={{ mt: 2 }}>
-              Търсене на издателства:
-            </Typography>
-            <List dense>
-              <ListItem>
-                <ListItemText primary="• По име, адрес, имейл" />
+                <ListItemText primary="• By name (first name, last name, or full name)" />
               </ListItem>
             </List>
           </Grid>

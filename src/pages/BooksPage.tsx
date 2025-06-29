@@ -32,7 +32,7 @@ import {
   Category
 } from '@mui/icons-material';
 import { format } from 'date-fns';
-import { bg } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 
 import { Book as BookType, Author, Publisher, Genre } from '../types';
 import { booksApi, authorsApi, publishersApi, genresApi } from '../services/api';
@@ -69,7 +69,7 @@ const BooksPage: React.FC = () => {
       setPublishers(publishersRes.data);
       setGenres(genresRes.data);
     } catch (error) {
-      showSnackbar('Грешка при зареждане на данните', 'error');
+      showSnackbar('Error loading data', 'error');
     } finally {
       setLoading(false);
     }
@@ -104,7 +104,7 @@ const BooksPage: React.FC = () => {
       
       setBooks(response.data);
     } catch (error) {
-      showSnackbar('Грешка при търсене', 'error');
+      showSnackbar('Error during search', 'error');
     } finally {
       setLoading(false);
     }
@@ -121,13 +121,13 @@ const BooksPage: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Сигурни ли сте, че искате да изтриете тази книга?')) {
+    if (window.confirm('Are you sure you want to delete this book?')) {
       try {
         await booksApi.delete(id);
         setBooks(books.filter(book => book.id !== id));
-        showSnackbar('Книгата е изтрита успешно', 'success');
+        showSnackbar('Book deleted successfully', 'success');
       } catch (error) {
-        showSnackbar('Грешка при изтриване на книгата', 'error');
+        showSnackbar('Error deleting book', 'error');
       }
     }
   };
@@ -137,15 +137,15 @@ const BooksPage: React.FC = () => {
       if (editingBook) {
         const response = await booksApi.update(editingBook.id!, book);
         setBooks(books.map(b => b.id === editingBook.id ? response.data : b));
-        showSnackbar('Книгата е обновена успешно', 'success');
+        showSnackbar('Book updated successfully', 'success');
       } else {
         const response = await booksApi.create(book);
         setBooks([...books, response.data]);
-        showSnackbar('Книгата е създадена успешно', 'success');
+        showSnackbar('Book created successfully', 'success');
       }
       setOpenDialog(false);
     } catch (error) {
-      showSnackbar('Грешка при запазване на книгата', 'error');
+      showSnackbar('Error saving book', 'error');
     }
   };
 
@@ -155,7 +155,7 @@ const BooksPage: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     try {
-      return format(new Date(dateString), 'dd MMMM yyyy', { locale: bg });
+      return format(new Date(dateString), 'dd MMMM yyyy', { locale: enUS });
     } catch {
       return dateString;
     }
@@ -165,7 +165,7 @@ const BooksPage: React.FC = () => {
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
         <Book sx={{ mr: 1, verticalAlign: 'middle' }} />
-        Книги
+        Books
       </Typography>
 
       {/* Search Section */}
@@ -174,24 +174,24 @@ const BooksPage: React.FC = () => {
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>
-                <InputLabel>Тип търсене</InputLabel>
+                <InputLabel>Search Type</InputLabel>
                 <Select
                   value={searchType}
                   onChange={(e) => setSearchType(e.target.value)}
-                  label="Тип търсене"
+                  label="Search Type"
                 >
-                  <MenuItem value="general">Общо търсене</MenuItem>
-                  <MenuItem value="title">По заглавие</MenuItem>
-                  <MenuItem value="author">По автор</MenuItem>
-                  <MenuItem value="publisher">По издателство</MenuItem>
-                  <MenuItem value="genre">По жанр</MenuItem>
+                  <MenuItem value="general">General Search</MenuItem>
+                  <MenuItem value="title">By Title</MenuItem>
+                  <MenuItem value="author">By Author</MenuItem>
+                  <MenuItem value="publisher">By Publisher</MenuItem>
+                  <MenuItem value="genre">By Genre</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Търсене"
+                label="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -204,21 +204,24 @@ const BooksPage: React.FC = () => {
                 startIcon={<Search />}
                 onClick={handleSearch}
               >
-                Търси
+                Search
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
 
-      {/* Add Button */}
-      <Box sx={{ mb: 3 }}>
+      {/* Actions */}
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">
+          {books.length} book{books.length !== 1 ? 's' : ''} found
+        </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={handleCreate}
         >
-          Добави нова книга
+          Add Book
         </Button>
       </Box>
 
@@ -228,7 +231,7 @@ const BooksPage: React.FC = () => {
           <Grid item xs={12} sm={6} md={4} key={book.id}>
             <Card>
               <CardContent>
-                <Typography variant="h6" component="h3" gutterBottom>
+                <Typography variant="h6" component="h2" gutterBottom>
                   {book.title}
                 </Typography>
                 
@@ -237,70 +240,73 @@ const BooksPage: React.FC = () => {
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Дата на публикуване:</strong> {formatDate(book.publicationDate)}
+                  <strong>Publication Date:</strong> {formatDate(book.publicationDate)}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Страници:</strong> {book.pages}
+                  <strong>Pages:</strong> {book.pages}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Език:</strong> {book.language}
+                  <strong>Language:</strong> {book.language}
                 </Typography>
 
                 <Box sx={{ mt: 1, mb: 1 }}>
-                  <Chip
-                    icon={<Category />}
-                    label={book.genre.name}
-                    size="small"
+                  <Chip 
+                    icon={<Category />} 
+                    label={book.genre.name} 
+                    size="small" 
                     sx={{ mr: 1, mb: 1 }}
                   />
                 </Box>
 
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Автори:</strong>
-                </Typography>
-                {book.authors.map((author) => (
-                  <Chip
-                    key={author.id}
-                    icon={<Person />}
-                    label={`${author.firstName} ${author.lastName}`}
-                    size="small"
-                    sx={{ mr: 1, mb: 1 }}
-                  />
-                ))}
+                {book.authors.length > 0 && (
+                  <Box sx={{ mt: 1, mb: 1 }}>
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>Authors:</strong>
+                    </Typography>
+                    {book.authors.map((author) => (
+                      <Chip
+                        key={author.id}
+                        icon={<Person />}
+                        label={`${author.firstName} ${author.lastName}`}
+                        size="small"
+                        sx={{ mr: 1, mb: 1 }}
+                      />
+                    ))}
+                  </Box>
+                )}
 
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Издателство:</strong>
-                </Typography>
-                <Chip
-                  icon={<Business />}
-                  label={book.publisher.name}
-                  size="small"
-                  sx={{ mb: 1 }}
-                />
+                <Box sx={{ mt: 1, mb: 1 }}>
+                  <Chip 
+                    icon={<Business />} 
+                    label={book.publisher.name} 
+                    size="small"
+                  />
+                </Box>
 
                 {book.description && (
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                     {book.description.length > 100 
                       ? `${book.description.substring(0, 100)}...` 
-                      : book.description}
+                      : book.description
+                    }
                   </Typography>
                 )}
               </CardContent>
               
               <CardActions>
-                <IconButton
-                  size="small"
+                <IconButton 
+                  size="small" 
+                  color="primary" 
                   onClick={() => handleEdit(book)}
-                  color="primary"
                 >
                   <Edit />
                 </IconButton>
-                <IconButton
-                  size="small"
+                <IconButton 
+                  size="small" 
+                  color="error" 
                   onClick={() => handleDelete(book.id!)}
-                  color="error"
                 >
                   <Delete />
                 </IconButton>
@@ -310,15 +316,15 @@ const BooksPage: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Book Form Dialog */}
-      <Dialog
-        open={openDialog}
+      {/* Dialog */}
+      <Dialog 
+        open={openDialog} 
         onClose={() => setOpenDialog(false)}
         maxWidth="md"
         fullWidth
       >
         <DialogTitle>
-          {editingBook ? 'Редактиране на книга' : 'Нова книга'}
+          {editingBook ? 'Edit Book' : 'Add New Book'}
         </DialogTitle>
         <DialogContent>
           <BookForm
@@ -338,8 +344,8 @@ const BooksPage: React.FC = () => {
         autoHideDuration={6000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
       >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
           severity={snackbar.severity}
         >
           {snackbar.message}

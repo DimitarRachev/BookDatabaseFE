@@ -1,255 +1,255 @@
-# База данни с книги - Frontend
+# Book Database - Frontend
 
-TypeScript React приложение за управление на база данни с книги, автори, издателства и жанрове.
+TypeScript React application for managing a book database with authors, publishers, and genres.
 
-## Технологии
+## Technologies
 
-- **React 18** с TypeScript
-- **Material-UI (MUI)** за UI компоненти
-- **React Router** за навигация
-- **Axios** за HTTP заявки
-- **date-fns** за работа с дати
-- **Docker** за контейнеризация
-- **Nginx** за reverse proxy
+- **React 18** with TypeScript
+- **Material-UI (MUI)** for UI components
+- **React Router** for navigation
+- **Axios** for HTTP requests
+- **date-fns** for date handling
+- **Docker** for containerization
+- **Nginx** for reverse proxy
 
-## Предварителни изисквания
+## Prerequisites
 
-### За локално разработване:
-- Node.js 16 или по-нова версия
-- npm или yarn
-- Стартиран бекенд сървър на `http://localhost:8080`
+### For local development:
+- Node.js 16 or newer
+- npm or yarn
+- Running backend server at `http://localhost:8080`
 
-### За Docker deployment:
-- Docker 20.10 или по-нова версия
-- Docker Compose 2.0 или по-нова версия
+### For Docker deployment:
+- Docker 20.10 or newer
+- Docker Compose 2.0 or newer
 
-## Инсталация и стартиране
+## Installation and Setup
 
-### 🚀 **Бързо стартиране с Docker (Препоръчително)**
+### 🚀 **Quick Start with Docker (Recommended)**
 
-1. **Клонирайте проектите**
+1. **Clone the projects**
    ```bash
-   # Клонирайте backend проекта
+   # Clone the backend project
    git clone <backend-repo-url> ../BookDatabase
    
-   # Клонирайте frontend проекта
+   # Clone the frontend project
    git clone <frontend-repo-url> .
    ```
 
-2. **Стартирайте backend и database**
+2. **Start backend and database**
    ```bash
-   # От backend директорията
+   # From backend directory
    cd ../BookDatabase
    docker compose up --build -d
    ```
 
-3. **Стартирайте frontend**
+3. **Start frontend**
    ```bash
-   # От frontend директорията
+   # From frontend directory
    cd ../BookDatabaseFE
    docker compose up --build -d
    ```
 
-4. **Отворете приложението**
+4. **Open the application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:8080
    - Database: localhost:3306
 
-### 🔧 **Локално разработване**
+### 🔧 **Local Development**
 
-1. **Инсталирайте зависимостите**
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. **Стартирайте бекенд сървъра** (от `C:\work\BookDatabase`)
+2. **Start the backend server** (from `C:\work\BookDatabase`)
    ```bash
    mvn spring-boot:run
    ```
 
-3. **Стартирайте frontend приложението**
+3. **Start the frontend application**
    ```bash
    npm start
    ```
 
-4. **Отворете браузъра** на `http://localhost:3000`
+4. **Open your browser** at `http://localhost:3000`
 
-### 🐳 **Docker команди**
+### 🐳 **Docker Commands**
 
-#### **Стартиране на различни конфигурации:**
+#### **Starting different configurations:**
 
 ```bash
-# Пълен стек (backend + frontend)
+# Full stack (backend + frontend)
 ./deploy.sh full
 
-# Само backend и database
+# Backend and database only
 ./deploy.sh backend
 
-# Само frontend
+# Frontend only
 ./deploy.sh frontend
 
-# Показване на логове
+# Show logs
 ./deploy.sh logs [frontend|backend|database]
 
-# Спиране на всички услуги
+# Stop all services
 ./deploy.sh stop
 
-# Изчистване на всичко
+# Clean up everything
 ./deploy.sh cleanup
 ```
 
-#### **Ръчни Docker команди:**
+#### **Manual Docker commands:**
 
 ```bash
-# Стартиране на frontend
+# Start frontend
 docker compose up --build -d
 
-# Стартиране на backend и database
+# Start backend and database
 docker compose -f docker-compose.backend.yml up --build -d
 
-# Показване на логове
+# Show logs
 docker compose logs -f
 docker compose -f docker-compose.backend.yml logs -f
 
-# Спиране на услугите
+# Stop services
 docker compose down
 docker compose -f docker-compose.backend.yml down
 
-# Изчистване на всичко
+# Clean up everything
 docker compose down -v && docker system prune -f
 ```
 
-## Функционалности
+## Features
 
-### Книги
-- ✅ Преглед на всички книги
-- ✅ Търсене по различни критерии (заглавие, автор, издателство, жанр)
-- ✅ Създаване на нови книги
-- ✅ Редактиране на съществуващи книги
-- ✅ Изтриване на книги
-- ✅ Показване на детайлна информация
+### Books
+- ✅ View all books
+- ✅ Search by various criteria (title, author, publisher, genre)
+- ✅ Create new books
+- ✅ Edit existing books
+- ✅ Delete books
+- ✅ View detailed information
 
-### Автори
-- ✅ Преглед на всички автори
-- ✅ Търсене по име
-- ✅ Създаване на нови автори
-- ✅ Редактиране на автори
-- ✅ Изтриване на автори
+### Authors
+- ✅ View all authors
+- ✅ Search by name
+- ✅ Create new authors
+- ✅ Edit authors
+- ✅ Delete authors
 
-### Издателства
-- ✅ Преглед на всички издателства
-- ✅ Търсене по име, адрес, имейл
-- ✅ Създаване на нови издателства
-- ✅ Редактиране на издателства
-- ✅ Изтриване на издателства
+### Publishers
+- ✅ View all publishers
+- ✅ Search by name, address, email
+- ✅ Create new publishers
+- ✅ Edit publishers
+- ✅ Delete publishers
 
-### Жанрове
-- ✅ Преглед на всички жанрове
-- ✅ Търсене по име
-- ✅ Създаване на нови жанрове
-- ✅ Редактиране на жанрове
-- ✅ Изтриване на жанрове
+### Genres
+- ✅ View all genres
+- ✅ Search by name
+- ✅ Create new genres
+- ✅ Edit genres
+- ✅ Delete genres
 
-## Структура на проекта
+## Project Structure
 
 ```
 src/
-├── components/          # Преизползваеми компоненти
-│   ├── Navigation.tsx   # Навигационен компонент
-│   ├── BookForm.tsx     # Форма за книги
-│   ├── AuthorForm.tsx   # Форма за автори
-│   ├── PublisherForm.tsx # Форма за издателства
-│   └── GenreForm.tsx    # Форма за жанрове
-├── pages/               # Страници на приложението
-│   ├── HomePage.tsx     # Начална страница
-│   ├── BooksPage.tsx    # Страница за книги
-│   ├── AuthorsPage.tsx  # Страница за автори
-│   ├── PublishersPage.tsx # Страница за издателства
-│   └── GenresPage.tsx   # Страница за жанрове
-├── services/            # API услуги
-│   └── api.ts          # Конфигурация на API заявките
-├── types/               # TypeScript типове
-│   └── index.ts        # Дефиниции на типовете
-├── App.tsx             # Основен компонент
-└── index.tsx           # Точка на влизане
+├── components/          # Reusable components
+│   ├── Navigation.tsx   # Navigation component
+│   ├── BookForm.tsx     # Book form
+│   ├── AuthorForm.tsx   # Author form
+│   ├── PublisherForm.tsx # Publisher form
+│   └── GenreForm.tsx    # Genre form
+├── pages/               # Application pages
+│   ├── HomePage.tsx     # Home page
+│   ├── BooksPage.tsx    # Books page
+│   ├── AuthorsPage.tsx  # Authors page
+│   ├── PublishersPage.tsx # Publishers page
+│   └── GenresPage.tsx   # Genres page
+├── services/            # API services
+│   └── api.ts          # API request configuration
+├── types/               # TypeScript types
+│   └── index.ts        # Type definitions
+├── App.tsx             # Main component
+└── index.tsx           # Entry point
 
-# Docker файлове
+# Docker files
 ├── Dockerfile          # Production build
 ├── Dockerfile.dev      # Development build
-├── docker-compose.yml  # Frontend compose файл
-├── docker-compose.backend.yml # Backend compose файл
-├── docker-compose.override.yml # Локални override-и
+├── docker-compose.yml  # Frontend compose file
+├── docker-compose.backend.yml # Backend compose file
+├── docker-compose.override.yml # Local overrides
 ├── docker-compose.dev.yml # Development compose
-├── docker-compose.test.yml # Тестов compose
-├── nginx.conf          # Nginx конфигурация
+├── docker-compose.test.yml # Test compose
+├── nginx.conf          # Nginx configuration
 ├── nginx-production.conf # Production nginx
-├── deploy.sh           # Deploy скрипт
-├── init-db.sql         # Database инициализация
-└── .dockerignore       # Docker ignore файл
+├── deploy.sh           # Deploy script
+├── init-db.sql         # Database initialization
+└── .dockerignore       # Docker ignore file
 ```
 
-## Docker архитектура
+## Docker Architecture
 
-### 🏗️ **Разделени сервиси**
-- **Frontend**: React приложение (port 3000) - управлява се отделно
-- **Backend**: Spring Boot приложение (port 8080) - управлява се от backend проекта
-- **Database**: MariaDB (port 3306) - управлява се от backend проекта
+### 🏗️ **Separated Services**
+- **Frontend**: React application (port 3000) - managed separately
+- **Backend**: Spring Boot application (port 8080) - managed from backend project
+- **Database**: MariaDB (port 3306) - managed from backend project
 
-### 🔄 **Docker Compose файлове**
-- `docker-compose.yml` - Само frontend контейнер
-- `docker-compose.backend.yml` - Backend и database контейнери
-- `docker-compose.override.yml` - Локални override-и за frontend
+### 🔄 **Docker Compose Files**
+- `docker-compose.yml` - Frontend container only
+- `docker-compose.backend.yml` - Backend and database containers
+- `docker-compose.override.yml` - Local overrides for frontend
 
-### 🌐 **Мрежа**
-- Изолирани Docker мрежи за frontend и backend
-- Health checks за всички сервиси
-- Rate limiting и security headers
+### 🌐 **Network**
+- Isolated Docker networks for frontend and backend
+- Health checks for all services
+- Rate limiting and security headers
 
 ## API Endpoints
 
-Приложението използва следните API endpoints от бекенда:
+The application uses the following API endpoints from the backend:
 
-### Книги
-- `GET /api/books` - Всички книги
-- `GET /api/books/{id}` - Книга по ID
-- `GET /api/books/search` - Общо търсене
-- `GET /api/books/search/title` - Търсене по заглавие
-- `GET /api/books/search/author` - Търсене по автор
-- `GET /api/books/search/publisher` - Търсене по издателство
-- `GET /api/books/search/genre` - Търсене по жанр
-- `POST /api/books` - Създаване на книга
-- `PUT /api/books/{id}` - Редактиране на книга
-- `DELETE /api/books/{id}` - Изтриване на книга
+### Books
+- `GET /api/books` - All books
+- `GET /api/books/{id}` - Book by ID
+- `GET /api/books/search` - General search
+- `GET /api/books/search/title` - Search by title
+- `GET /api/books/search/author` - Search by author
+- `GET /api/books/search/publisher` - Search by publisher
+- `GET /api/books/search/genre` - Search by genre
+- `POST /api/books` - Create book
+- `PUT /api/books/{id}` - Edit book
+- `DELETE /api/books/{id}` - Delete book
 
-### Автори
-- `GET /api/authors` - Всички автори
-- `GET /api/authors/{id}` - Автор по ID
-- `GET /api/authors/search` - Търсене по име
-- `POST /api/authors` - Създаване на автор
-- `PUT /api/authors/{id}` - Редактиране на автор
-- `DELETE /api/authors/{id}` - Изтриване на автор
+### Authors
+- `GET /api/authors` - All authors
+- `GET /api/authors/{id}` - Author by ID
+- `GET /api/authors/search` - Search by name
+- `POST /api/authors` - Create author
+- `PUT /api/authors/{id}` - Edit author
+- `DELETE /api/authors/{id}` - Delete author
 
-### Издателства
-- `GET /api/publishers` - Всички издателства
-- `GET /api/publishers/{id}` - Издателство по ID
-- `GET /api/publishers/search` - Търсене
-- `POST /api/publishers` - Създаване на издателство
-- `PUT /api/publishers/{id}` - Редактиране на издателство
-- `DELETE /api/publishers/{id}` - Изтриване на издателство
+### Publishers
+- `GET /api/publishers` - All publishers
+- `GET /api/publishers/{id}` - Publisher by ID
+- `GET /api/publishers/search` - Search
+- `POST /api/publishers` - Create publisher
+- `PUT /api/publishers/{id}` - Edit publisher
+- `DELETE /api/publishers/{id}` - Delete publisher
 
-### Жанрове
-- `GET /api/genres` - Всички жанрове
-- `GET /api/genres/{id}` - Жанр по ID
-- `GET /api/genres/search` - Търсене по име
-- `POST /api/genres` - Създаване на жанр
-- `PUT /api/genres/{id}` - Редактиране на жанр
-- `DELETE /api/genres/{id}` - Изтриване на жанр
+### Genres
+- `GET /api/genres` - All genres
+- `GET /api/genres/{id}` - Genre by ID
+- `GET /api/genres/search` - Search by name
+- `POST /api/genres` - Create genre
+- `PUT /api/genres/{id}` - Edit genre
+- `DELETE /api/genres/{id}` - Delete genre
 
-## Конфигурация
+## Configuration
 
-### Промяна на API URL
+### Changing API URL
 
-Ако бекенд сървърът не работи на `http://localhost:8080`, променете URL-а в `src/services/api.ts`:
+If the backend server is not running on `http://localhost:8080`, change the URL in `src/services/api.ts`:
 
 ```typescript
 const API_BASE_URL = 'http://your-backend-url:port/api';
@@ -257,148 +257,148 @@ const API_BASE_URL = 'http://your-backend-url:port/api';
 
 ### Docker environment variables
 
-Можете да промените настройките чрез environment variables:
+You can change the settings through environment variables:
 
 ```bash
-# Database (в docker-compose.backend.yml)
+# Database (in docker-compose.backend.yml)
 MYSQL_ROOT_PASSWORD=your_password
 MYSQL_DATABASE=your_database
 MYSQL_USER=your_user
 MYSQL_PASSWORD=your_password
 
-# Backend (в docker-compose.backend.yml)
+# Backend (in docker-compose.backend.yml)
 SPRING_DATASOURCE_URL=jdbc:mariadb://database:3306/book_database
 SPRING_DATASOURCE_USERNAME=bookuser
 SPRING_DATASOURCE_PASSWORD=bookpassword
 ```
 
-## Скриптове
+## Scripts
 
-### NPM скриптове
-- `npm start` - Стартира development сървър
-- `npm build` - Създава production build
-- `npm test` - Стартира тестове
-- `npm run eject` - Извлича конфигурацията (необратимо)
+### NPM Scripts
+- `npm start` - Start development server
+- `npm build` - Create production build
+- `npm test` - Run tests
+- `npm run eject` - Eject configuration (irreversible)
 
-### Deploy скриптове
-- `./deploy.sh full` - Deploy пълен стек
-- `./deploy.sh backend` - Deploy само backend
-- `./deploy.sh frontend` - Deploy само frontend
-- `./deploy.sh logs [service]` - Показва логове
-- `./deploy.sh stop` - Спира услугите
-- `./deploy.sh cleanup` - Изчиства всичко
+### Deploy Scripts
+- `./deploy.sh full` - Deploy full stack
+- `./deploy.sh backend` - Deploy backend only
+- `./deploy.sh frontend` - Deploy frontend only
+- `./deploy.sh logs [service]` - Show logs
+- `./deploy.sh stop` - Stop services
+- `./deploy.sh cleanup` - Clean up everything
 
-## Използване
+## Usage
 
 ### Development
-1. **Стартирайте backend и database:**
+1. **Start backend and database:**
    ```bash
    cd ../BookDatabase
    docker compose up --build -d
    ```
 
-2. **Стартирайте frontend локално:**
+2. **Start frontend locally:**
    ```bash
    npm start
    ```
 
-3. **Отворете браузъра** на `http://localhost:3000`
+3. **Open your browser** at `http://localhost:3000`
 
 ### Production
-1. **Стартирайте backend:**
+1. **Start backend:**
    ```bash
    cd ../BookDatabase
    docker compose up --build -d
    ```
 
-2. **Стартирайте frontend:**
+2. **Start frontend:**
    ```bash
    docker compose up --build -d
    ```
 
-3. **Отворете браузъра** на `http://localhost:3000`
+3. **Open your browser** at `http://localhost:3000`
 
-## Търсене
+## Search
 
-### Книги
-- Общо търсене в заглавие, описание, ISBN
-- Търсене по заглавие
-- Търсене по автор
-- Търсене по издателство
-- Търсене по жанр
+### Books
+- General search in title, description, ISBN
+- Search by title
+- Search by author
+- Search by publisher
+- Search by genre
 
-### Автори
-- Търсене по име (първо име, фамилия или пълно име)
+### Authors
+- Search by name (first name, last name, or full name)
 
-### Издателства
-- Търсене по име, адрес, имейл
+### Publishers
+- Search by name, address, email
 
-### Жанрове
-- Търсене по име на жанр
+### Genres
+- Search by genre name
 
 ## Troubleshooting
 
-### Често срещани проблеми
+### Common Issues
 
-1. **Port 3000/8080/3306 е зает**
+1. **Port 3000/8080/3306 is busy**
    ```bash
-   # Проверете кои процеси използват портовете
+   # Check which processes are using the ports
    netstat -tulpn | grep :3000
    netstat -tulpn | grep :8080
    netstat -tulpn | grep :3306
    
-   # Спрете процесите или променете портовете в docker-compose файловете
+   # Stop the processes or change ports in docker-compose files
    ```
 
-2. **Docker не може да build-не**
+2. **Docker cannot build**
    ```bash
-   # Изчистете Docker cache
+   # Clear Docker cache
    docker system prune -a
    
-   # Проверете дали имате достатъчно disk space
+   # Check if you have enough disk space
    df -h
    ```
 
 3. **Database connection failed**
    ```bash
-   # Проверете дали database контейнерът работи
+   # Check if database container is running
    docker compose -f docker-compose.backend.yml ps
    
-   # Проверете database логовете
+   # Check database logs
    docker compose -f docker-compose.backend.yml logs database
    ```
 
-4. **Frontend не може да се свърже с backend**
+4. **Frontend cannot connect to backend**
    ```bash
-   # Проверете дали backend контейнерът работи
+   # Check if backend container is running
    docker compose -f docker-compose.backend.yml ps
    
-   # Проверете backend логовете
+   # Check backend logs
    docker compose -f docker-compose.backend.yml logs backend
    ```
 
-5. **Backend не може да се build-не**
+5. **Backend cannot build**
    ```bash
-   # Проверете дали backend проектът съществува
+   # Check if backend project exists
    ls -la ../BookDatabase
    
-   # Build-нете backend ръчно
+   # Build backend manually
    cd ../BookDatabase
    mvn clean package -DskipTests
    ```
 
-6. **Frontend не се стартира**
+6. **Frontend won't start**
    ```bash
-   # Проверете frontend логовете
+   # Check frontend logs
    docker compose logs frontend
    
-   # Проверете дали node_modules съществува
+   # Check if node_modules exists
    ls -la node_modules
    
-   # Преинсталирайте зависимостите
+   # Reinstall dependencies
    npm install
    ```
 
-## Лиценз
+## License
 
-Този проект е създаден за образователни цели. 
+This project is created for educational purposes. 

@@ -45,7 +45,7 @@ const GenresPage: React.FC = () => {
       const response = await genresApi.getAll();
       setGenres(response.data);
     } catch (error) {
-      showSnackbar('Грешка при зареждане на жанровете', 'error');
+      showSnackbar('Error loading genres', 'error');
     } finally {
       setLoading(false);
     }
@@ -62,7 +62,7 @@ const GenresPage: React.FC = () => {
       const response = await genresApi.search(searchTerm);
       setGenres(response.data);
     } catch (error) {
-      showSnackbar('Грешка при търсене', 'error');
+      showSnackbar('Error during search', 'error');
     } finally {
       setLoading(false);
     }
@@ -79,13 +79,13 @@ const GenresPage: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Сигурни ли сте, че искате да изтриете този жанр?')) {
+    if (window.confirm('Are you sure you want to delete this genre?')) {
       try {
         await genresApi.delete(id);
         setGenres(genres.filter(genre => genre.id !== id));
-        showSnackbar('Жанрът е изтрит успешно', 'success');
+        showSnackbar('Genre deleted successfully', 'success');
       } catch (error) {
-        showSnackbar('Грешка при изтриване на жанра', 'error');
+        showSnackbar('Error deleting genre', 'error');
       }
     }
   };
@@ -95,15 +95,15 @@ const GenresPage: React.FC = () => {
       if (editingGenre) {
         const response = await genresApi.update(editingGenre.id!, genre);
         setGenres(genres.map(g => g.id === editingGenre.id ? response.data : g));
-        showSnackbar('Жанрът е обновен успешно', 'success');
+        showSnackbar('Genre updated successfully', 'success');
       } else {
         const response = await genresApi.create(genre);
         setGenres([...genres, response.data]);
-        showSnackbar('Жанрът е създаден успешно', 'success');
+        showSnackbar('Genre created successfully', 'success');
       }
       setOpenDialog(false);
     } catch (error) {
-      showSnackbar('Грешка при запазване на жанра', 'error');
+      showSnackbar('Error saving genre', 'error');
     }
   };
 
@@ -115,7 +115,7 @@ const GenresPage: React.FC = () => {
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
         <Category sx={{ mr: 1, verticalAlign: 'middle' }} />
-        Жанрове
+        Genres
       </Typography>
 
       {/* Search Section */}
@@ -125,7 +125,7 @@ const GenresPage: React.FC = () => {
             <Grid item xs={12} sm={8}>
               <TextField
                 fullWidth
-                label="Търсене по име на жанр"
+                label="Search by genre name"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -138,21 +138,24 @@ const GenresPage: React.FC = () => {
                 startIcon={<Search />}
                 onClick={handleSearch}
               >
-                Търси
+                Search
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
 
-      {/* Add Button */}
-      <Box sx={{ mb: 3 }}>
+      {/* Actions */}
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">
+          {genres.length} genre{genres.length !== 1 ? 's' : ''} found
+        </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={handleCreate}
         >
-          Добави нов жанр
+          Add Genre
         </Button>
       </Box>
 
@@ -162,7 +165,7 @@ const GenresPage: React.FC = () => {
           <Grid item xs={12} sm={6} md={4} key={genre.id}>
             <Card>
               <CardContent>
-                <Typography variant="h6" component="h3" gutterBottom>
+                <Typography variant="h6" component="h2" gutterBottom>
                   {genre.name}
                 </Typography>
 
@@ -196,7 +199,7 @@ const GenresPage: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Genre Form Dialog */}
+      {/* Dialog */}
       <Dialog
         open={openDialog}
         onClose={() => setOpenDialog(false)}
@@ -204,7 +207,7 @@ const GenresPage: React.FC = () => {
         fullWidth
       >
         <DialogTitle>
-          {editingGenre ? 'Редактиране на жанр' : 'Нов жанр'}
+          {editingGenre ? 'Edit Genre' : 'Add New Genre'}
         </DialogTitle>
         <DialogContent>
           <GenreForm
@@ -221,8 +224,8 @@ const GenresPage: React.FC = () => {
         autoHideDuration={6000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
       >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
           severity={snackbar.severity}
         >
           {snackbar.message}

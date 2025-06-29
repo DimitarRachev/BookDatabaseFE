@@ -51,7 +51,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Име на издателството"
+            label="Publisher Name"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             required
@@ -61,7 +61,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Адрес"
+            label="Address"
             value={formData.address}
             onChange={(e) => handleInputChange('address', e.target.value)}
             required
@@ -71,7 +71,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Телефон"
+            label="Phone"
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
             required
@@ -81,7 +81,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Имейл"
+            label="Email"
             type="email"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
@@ -92,7 +92,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Уебсайт"
+            label="Website"
             value={formData.website}
             onChange={(e) => handleInputChange('website', e.target.value)}
           />
@@ -101,7 +101,7 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Описание"
+            label="Description"
             multiline
             rows={4}
             value={formData.description}
@@ -112,10 +112,10 @@ const PublisherForm: React.FC<PublisherFormProps> = ({
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="outlined" onClick={onCancel}>
-              Отказ
+              Cancel
             </Button>
-            <Button type="submit" variant="contained">
-              {publisher ? 'Обнови' : 'Създай'}
+            <Button type="submit" variant="contained" color="primary">
+              {publisher ? 'Update' : 'Create'} Publisher
             </Button>
           </Box>
         </Grid>

@@ -48,7 +48,7 @@ const PublishersPage: React.FC = () => {
       const response = await publishersApi.getAll();
       setPublishers(response.data);
     } catch (error) {
-      showSnackbar('Грешка при зареждане на издателствата', 'error');
+      showSnackbar('Error loading publishers', 'error');
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ const PublishersPage: React.FC = () => {
       const response = await publishersApi.search(searchTerm);
       setPublishers(response.data);
     } catch (error) {
-      showSnackbar('Грешка при търсене', 'error');
+      showSnackbar('Error during search', 'error');
     } finally {
       setLoading(false);
     }
@@ -82,13 +82,13 @@ const PublishersPage: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm('Сигурни ли сте, че искате да изтриете това издателство?')) {
+    if (window.confirm('Are you sure you want to delete this publisher?')) {
       try {
         await publishersApi.delete(id);
         setPublishers(publishers.filter(publisher => publisher.id !== id));
-        showSnackbar('Издателството е изтрито успешно', 'success');
+        showSnackbar('Publisher deleted successfully', 'success');
       } catch (error) {
-        showSnackbar('Грешка при изтриване на издателството', 'error');
+        showSnackbar('Error deleting publisher', 'error');
       }
     }
   };
@@ -98,15 +98,15 @@ const PublishersPage: React.FC = () => {
       if (editingPublisher) {
         const response = await publishersApi.update(editingPublisher.id!, publisher);
         setPublishers(publishers.map(p => p.id === editingPublisher.id ? response.data : p));
-        showSnackbar('Издателството е обновено успешно', 'success');
+        showSnackbar('Publisher updated successfully', 'success');
       } else {
         const response = await publishersApi.create(publisher);
         setPublishers([...publishers, response.data]);
-        showSnackbar('Издателството е създадено успешно', 'success');
+        showSnackbar('Publisher created successfully', 'success');
       }
       setOpenDialog(false);
     } catch (error) {
-      showSnackbar('Грешка при запазване на издателството', 'error');
+      showSnackbar('Error saving publisher', 'error');
     }
   };
 
@@ -118,7 +118,7 @@ const PublishersPage: React.FC = () => {
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
         <Business sx={{ mr: 1, verticalAlign: 'middle' }} />
-        Издателства
+        Publishers
       </Typography>
 
       {/* Search Section */}
@@ -128,7 +128,7 @@ const PublishersPage: React.FC = () => {
             <Grid item xs={12} sm={8}>
               <TextField
                 fullWidth
-                label="Търсене по име, адрес или имейл"
+                label="Search by name, address or email"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -141,21 +141,24 @@ const PublishersPage: React.FC = () => {
                 startIcon={<Search />}
                 onClick={handleSearch}
               >
-                Търси
+                Search
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
 
-      {/* Add Button */}
-      <Box sx={{ mb: 3 }}>
+      {/* Actions */}
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">
+          {publishers.length} publisher{publishers.length !== 1 ? 's' : ''} found
+        </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={handleCreate}
         >
-          Добави ново издателство
+          Add Publisher
         </Button>
       </Box>
 
@@ -165,25 +168,25 @@ const PublishersPage: React.FC = () => {
           <Grid item xs={12} sm={6} md={4} key={publisher.id}>
             <Card>
               <CardContent>
-                <Typography variant="h6" component="h3" gutterBottom>
+                <Typography variant="h6" component="h2" gutterBottom>
                   {publisher.name}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Адрес:</strong> {publisher.address}
+                  <strong>Address:</strong> {publisher.address}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Телефон:</strong> {publisher.phone}
+                  <strong>Phone:</strong> {publisher.phone}
                 </Typography>
                 
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  <strong>Имейл:</strong> {publisher.email}
+                  <strong>Email:</strong> {publisher.email}
                 </Typography>
                 
                 {publisher.website && (
                   <Typography variant="body2" color="text.secondary" gutterBottom>
-                    <strong>Уебсайт:</strong> {publisher.website}
+                    <strong>Website:</strong> {publisher.website}
                   </Typography>
                 )}
 
@@ -217,15 +220,15 @@ const PublishersPage: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Publisher Form Dialog */}
-      <Dialog
-        open={openDialog}
+      {/* Dialog */}
+      <Dialog 
+        open={openDialog} 
         onClose={() => setOpenDialog(false)}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>
-          {editingPublisher ? 'Редактиране на издателство' : 'Ново издателство'}
+          {editingPublisher ? 'Edit Publisher' : 'Add New Publisher'}
         </DialogTitle>
         <DialogContent>
           <PublisherForm
@@ -242,8 +245,8 @@ const PublishersPage: React.FC = () => {
         autoHideDuration={6000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
       >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
           severity={snackbar.severity}
         >
           {snackbar.message}

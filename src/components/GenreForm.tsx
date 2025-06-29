@@ -47,7 +47,7 @@ const GenreForm: React.FC<GenreFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Име на жанра"
+            label="Genre Name"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             required
@@ -57,7 +57,7 @@ const GenreForm: React.FC<GenreFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Описание"
+            label="Description"
             multiline
             rows={4}
             value={formData.description}
@@ -68,10 +68,10 @@ const GenreForm: React.FC<GenreFormProps> = ({
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="outlined" onClick={onCancel}>
-              Отказ
+              Cancel
             </Button>
-            <Button type="submit" variant="contained">
-              {genre ? 'Обнови' : 'Създай'}
+            <Button type="submit" variant="contained" color="primary">
+              {genre ? 'Update' : 'Create'} Genre
             </Button>
           </Box>
         </Grid>

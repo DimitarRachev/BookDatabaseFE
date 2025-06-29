@@ -118,7 +118,7 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Заглавие"
+            label="Title"
             value={formData.title}
             onChange={(e) => handleInputChange('title', e.target.value)}
             required
@@ -138,7 +138,7 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Дата на публикуване"
+            label="Publication Date"
             type="date"
             value={formData.publicationDate}
             onChange={(e) => handleInputChange('publicationDate', e.target.value)}
@@ -150,7 +150,7 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Брой страници"
+            label="Pages"
             type="number"
             value={formData.pages}
             onChange={(e) => handleInputChange('pages', parseInt(e.target.value) || 0)}
@@ -161,7 +161,7 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Език"
+            label="Language"
             value={formData.language}
             onChange={(e) => handleInputChange('language', e.target.value)}
             required
@@ -170,11 +170,11 @@ const BookForm: React.FC<BookFormProps> = ({
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
-            <InputLabel>Жанр</InputLabel>
+            <InputLabel>Genre</InputLabel>
             <Select
               value={formData.genre.id || ''}
               onChange={(e) => handleGenreChange(e.target.value as number)}
-              label="Жанр"
+              label="Genre"
             >
               {genres.map((genre) => (
                 <MenuItem key={genre.id} value={genre.id}>
@@ -187,11 +187,11 @@ const BookForm: React.FC<BookFormProps> = ({
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
-            <InputLabel>Издателство</InputLabel>
+            <InputLabel>Publisher</InputLabel>
             <Select
               value={formData.publisher.id || ''}
               onChange={(e) => handlePublisherChange(e.target.value as number)}
-              label="Издателство"
+              label="Publisher"
             >
               {publishers.map((publisher) => (
                 <MenuItem key={publisher.id} value={publisher.id}>
@@ -204,12 +204,12 @@ const BookForm: React.FC<BookFormProps> = ({
 
         <Grid item xs={12}>
           <FormControl fullWidth required>
-            <InputLabel>Автори</InputLabel>
+            <InputLabel>Authors</InputLabel>
             <Select
               multiple
               value={selectedAuthors}
               onChange={handleAuthorChange}
-              input={<OutlinedInput label="Автори" />}
+              input={<OutlinedInput label="Authors" />}
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                   {selected.map((value) => {
@@ -217,7 +217,7 @@ const BookForm: React.FC<BookFormProps> = ({
                     return (
                       <Chip 
                         key={value} 
-                        label={author ? `${author.firstName} ${author.lastName}` : ''} 
+                        label={`${author?.firstName} ${author?.lastName}`} 
                       />
                     );
                   })}
@@ -236,7 +236,7 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12}>
           <TextField
             fullWidth
-            label="Описание"
+            label="Description"
             multiline
             rows={4}
             value={formData.description}
@@ -247,10 +247,10 @@ const BookForm: React.FC<BookFormProps> = ({
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="outlined" onClick={onCancel}>
-              Отказ
+              Cancel
             </Button>
-            <Button type="submit" variant="contained">
-              {book ? 'Обнови' : 'Създай'}
+            <Button type="submit" variant="contained" color="primary">
+              {book ? 'Update' : 'Create'} Book
             </Button>
           </Box>
         </Grid>
